@@ -12,7 +12,33 @@
 
 </ion-header>
 
-
 <ion-content padding>
 
+  <form [formGroup]="calc" #form="ngForm" (ngSubmit)="logForm(form)">
+    <ion-item>
+      <ion-label>Valor A</ion-label>
+      <ion-input type="number" formControlName="valorA"></ion-input>
+    </ion-item>
+    <div><p class="operacao">{{ form.value.operacao }}</p></div>
+    <ion-item>
+      <ion-label>Valor B</ion-label>
+      <ion-input type="number" formControlName="valorB"></ion-input>
+    </ion-item>
+    <ion-list>
+      <ion-item>
+        <ion-label>Operação</ion-label>
+        <ion-select formControlName="operacao">
+          <ion-option value="+">Soma</ion-option>
+          <ion-option value="-">Subtração</ion-option>
+          <ion-option value="*">multiplicação</ion-option>
+          <ion-option value="/">Divisão</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <button ion-button type="submit" [disabled]="!calc.valid">Calcular Resultado</button>
+
+    <ion-row>
+      <p class="resultado">Resultado: {{ calcular() }}</p>
+    </ion-row>
+  </form>
 </ion-content>
