@@ -14,16 +14,16 @@
 
 
 <ion-content padding>
-  <form [formGroup]="person" (ngSubmit)="logForm()">
+  <form [formGroup]="person" #form="ngForm" (ngSubmit)="logForm(form)">
     <ion-item>
       <ion-label>Nome</ion-label>
       <ion-input type="text" formControlName="nome"></ion-input>
     </ion-item>
-    <button ion-button type="submit" [disabled]="!person.valid">Submit</button>
+    <button ion-button type="submit" [disabled]="!person.valid">Salvar</button>
   </form>
 
-  <ion-list>
-    <ion-item-sliding (ionSwipe)="logDrag(item)" *ngFor="let item of list">
+  <ion-list class="lista-pessoas">
+    <ion-item-sliding *ngFor="let item of list">
       <ion-item>{{ item.nome }}</ion-item>
       <ion-item-options>
         <button ion-button expandable (click)="logApagar(item)" icon-only>

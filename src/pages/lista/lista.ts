@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import uuid from 'uuid/v4';
 /**
  * Generated class for the ListaPage page.
  *
@@ -19,7 +20,7 @@ export class ListaPage {
   private apagar: FormGroup;
   private list = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertController : AlertController, public formBuilder: FormBuilder) {
     this.person = this.formBuilder.group({
       id: [''],
       nome: ['', Validators.required]
@@ -32,7 +33,6 @@ export class ListaPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListaPage');
-
   }
 
   logApagar(person) {
@@ -46,17 +46,27 @@ export class ListaPage {
     });
   }
 
-  logForm() {
+  logForm(form) {
+    console.log("FORM RECEBIDO:   " + form.value.nome);
 
-    if (this.list.length > 0) {
-      this.person.value.id = this.list.length;
+    this.person.value.nome = form.value.nome;
+    this.person.value.id = 1;
+    if (this.list.indexOf(this.person.value) >= 0) {
+      console.log("Objeto já existe na lista");
+      const alerta = this.alertController.create({
+        title: 'Nome já existe!',
+        subTitle: "O nome "+ this.person.value.nome+" já foi cadastrado...",
+        buttons: ['Ok']
+
+      });
+      alerta.present();
     } else {
-      this.person.value.id = 0;
+      console.log("Objeto não existe na lista");
+      console.log(this.person.value);
+      this.list.push(this.person.value);
+      console.log(this.list);
     }
 
-    console.log(this.person.value);
-    this.list.push(this.person.value);
-    console.log(this.list);
   }
 
 }
