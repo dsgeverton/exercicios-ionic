@@ -15,7 +15,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CardPage {
 
+  public pessoa = {
+    matricula:'',
+    nome:'',
+    idade:0,
+    curso:'',
+    imageURL:''
+  }
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.pessoa.nome = "Everton da Silva Gonçalves";
+    this.pessoa.idade = 21;
+    this.pessoa.matricula = "201521200068";
+    this.pessoa.curso = "Sistemas de Informação";
+    this.pessoa.imageURL = "../../assets/imgs/mario.jpg"
   }
 
   ionViewDidLoad() {
